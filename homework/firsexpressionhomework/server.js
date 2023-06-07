@@ -46,6 +46,31 @@ app.get("/magic/:question", (req, res) => {
   );
 });
 
+app.get("/fibonacci/:number", (req, res) => {
+  const number = parseInt(req.params.number);
+
+  // Check if the number is a Fibonacci number
+  if (isFibonacci(number)) {
+    res.send("<h1>Very good. It is Fibonacci.</h1>");
+  } else {
+    res.send("<h1>I can tell this is not a Fibonacci number.</h1>");
+  }
+});
+
+// Function to check if a number is a Fibonacci number
+function isFibonacci(number) {
+  const isPerfectSquare1 =
+    isPerfectSquare(5 * number * number + 4) ||
+    isPerfectSquare(5 * number * number - 4);
+
+  return isPerfectSquare1;
+}
+
+// Function to check if a number is a perfect square
+function isPerfectSquare(num) {
+  return Math.sqrt(num) % 1 === 0;
+}
+
 app.listen(3000, () => {
   console.log("Server listening on port 3000");
 });
